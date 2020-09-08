@@ -47,6 +47,15 @@ let persons = [
     }
 ]
 
+app.get('/', (req,res) => {
+    res.send(
+        `<h1>Sivut:</h1>
+        <p>/info</p>
+        <p>/api/persons</p>
+        <p>/api/persons/:id</p>`
+    )
+})
+
 app.get('/info', (req,res) => {
     const personAmount = persons.length
     res.send(
