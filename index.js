@@ -4,6 +4,8 @@ const app = express()
 var morgan = require('morgan')
 
 app.use(express.json())
+app.use(express.static('build'))
+
 app.use(morgan(function (tokens, req, res) {
     if (tokens.method(req,res) == "POST") {
         return [
@@ -46,15 +48,6 @@ let persons = [
         id: 4
     }
 ]
-
-app.get('/', (req,res) => {
-    res.send(
-        `<h1>Sivut:</h1>
-        <p>/info</p>
-        <p>/api/persons</p>
-        <p>/api/persons/:id</p>`
-    )
-})
 
 app.get('/info', (req,res) => {
     const personAmount = persons.length
