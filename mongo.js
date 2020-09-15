@@ -9,42 +9,42 @@ const url =
 
 //Connect to the database
 mongoose.connect(url, {
-    useNewUrlParser: true, 
-    useUnifiedTopology: true
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 })
 
 mongoose.connection.on('connected', () => {
-    console.log('Connection successful')
+  console.log('Connection successful')
 })
 
 
 const peopleSchema = new mongoose.Schema({
-    name: String,
-    number: String
+  name: String,
+  number: String
 })
 
 const Person = mongoose.model('Person', peopleSchema)
 
 //Consolelogs the elements of database if there's not enough arguements
 if (process.argv.length < 5) {
-    Person.find({}).then(result => {
-        result.forEach(person => {
-            console.log(person)
-        });
-    mongoose.connection.close()
-    console.log("Connection closed")
+  Person.find({}).then(result => {
+    result.forEach(person => {
+      console.log(person)
     })
+    mongoose.connection.close()
+    console.log('Connection closed')
+  })
 }
 //Adds new element to database
 else {
-    const person = new Person ({
-        name: personName,
-        number: personNumber
-    })
+  const person = new Person ({
+    name: personName,
+    number: personNumber
+  })
 
-    person.save().then(result => {
-        console.log('Added' , personName, 'number', personNumber, 'to phonebook')
-        mongoose.connection.close()
-        console.log("Connection closed")
-    })
+  person.save().then(() => {
+    console.log('Added' , personName, 'number', personNumber, 'to phonebook')
+    mongoose.connection.close()
+    console.log('Connection closed')
+  })
 }
